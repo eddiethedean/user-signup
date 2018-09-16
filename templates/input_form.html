@@ -1,34 +1,97 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    
+ 
     <form action="/signup" method="post">
         <label>
             Username      
-            <input type="text" name="user-name" value='{{username}}'/>
-            <label class="error">{{error.username_error}}</label>
+            <input id='username' onkeyup="add_username_checkmark();" type="text" name="user-name" value='{{username}}'/>
+            <label id='username_checkmark'></label>
+            <label id='username_error' class="error">{{error.username_error}}</label>
         </label>
         <br>
+        
         <label>
             Password
-            <input type="password" name="pass-word" value='{{password}}'/>
+            <input id='password' type="password" onkeyup="add_password_checkmark();" name="pass-word" value='{{password}}'/>
+            <label id='password_checkmark'></label>
             <label class="error">{{error.password_error}}</label>
         </label>
         <br>
         <label>
             Verify Password
-            <input type="password" name="ver-pass-word" value='{{ver_password}}'/>
+            <input id='ver_password' type="password" onkeyup="add_ver_password_checkmark();" name="ver-pass-word" value='{{ver_password}}'/>
+            <label id='ver_password_checkmark'></label>
             <label class="error">{{error.ver_password_error}}</label>
         </label>
         <br>
         <label>
             Email (optional)
-            <input type="text" name="e-mail" value='{{email}}'/>
+            <input id='email' type="text" onkeyup="add_email_checkmark();" name="e-mail" value='{{email}}'/>
+            <label id='email_checkmark'></label>
             <label class="error">{{error.email_error}}</label>
         </label>
         <br>
-        <input type="submit" value="Submit"/>
+        <input id="submit" type="submit" value="Submit"/>
     </form>
+
+    <script>
+
+    var green_checkbox = '&#9989';
+    var red_x = '&#10060'
+
+    function disable_button() {
+        if(document.getElementById("username").value==""){
+            document.getElementById("submit").disabled = true
+        }
+        else{
+            document.getElementById("submit").disabled = false
+        }
+    }
+
+    function add_username_checkmark() {
+        var val = document.getElementById("username").value;
+        if (val.length > 3 && val.length < 20 && val.indexOf(" ")==-1){
+            document.getElementById("username_checkmark").innerHTML = green_checkbox;
+        }
+        else {
+            document.getElementById("username_checkmark").innerHTML = red_x;
+        }
+    }
+
+    function add_password_checkmark() {
+        var val = document.getElementById("password").value;
+        if (val.length > 3 && val.length < 20 && val.indexOf(" ")==-1){
+            document.getElementById("password_checkmark").innerHTML = green_checkbox;
+        }
+        else {
+            document.getElementById("password_checkmark").innerHTML = red_x;
+        }
+    }
+
+    function add_ver_password_checkmark() {
+        var old_val = document.getElementById("password").value;
+        var new_val = document.getElementById("ver_password").value;
+
+        if (old_val==new_val){
+            document.getElementById("ver_password_checkmark").innerHTML = green_checkbox;
+        }
+        else {
+            document.getElementById("ver_password_checkmark").innerHTML = red_x;
+        }
+    }
+
+    function add_email_checkmark() {
+        var val = document.getElementById("email").value;
+        var re = /^\S+@\S+\.\S+/;
+        if (val.length > 3 && val.length < 20 && val.indexOf(" ")==-1 && re.test(val)){
+            document.getElementById("email_checkmark").innerHTML = green_checkbox;
+        }
+        else {
+            document.getElementById("email_checkmark").innerHTML = red_x;
+        }
+    }
+
+    </script>
 
 {% endblock %}

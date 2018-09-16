@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, escape
 import os
+import re
 
 app = Flask(__name__)
 
@@ -58,9 +59,15 @@ def index():
     #make sure email is valid
     # contains a single @, a single ., contains no spaces, and is between 3 and 20 characters long
     if email != '':
-        if email.count('@')!=1 or email.count('.')!=1 or email.find(' ')!=-1 or 20 < len(email) < 3:
-            error.email_error += 'Email must contain a single @, a single period, no spaces, and 3-20 characters long. '
-    
+        if not re.match(r'^\S+@\S+\.\S+', email):
+            error.email_error += 'Email must contain a single @, a single period, no spaces'
+        if len(email)<3:
+            error.email_error += 'Must be longer than 3 characters. '
+        if len(email)>20:
+            error.email_error += 'Must be shorter than 20 characters. '
+        #and 3-20 characters long. '
+        #if email.count('@')!=1 or email.count('.')!=1 or email.find(' ')!=-1 or 20 < len(email) < 3:
+
     if error:
         return render_template('input_form.html',title='Signup Form',username=username, email=email, error=error)
     else:
