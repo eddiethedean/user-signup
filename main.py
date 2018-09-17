@@ -47,26 +47,29 @@ def index():
         error.username_error += 'Username cannot contain spaces. '
     #make sure pass-word is valid
     #it contains a space character or it consists of less than 3 characters or more than 20 characters
-    if 20 < len(password):
+    if password=="":
+        error.password_error += 'Password is required. '
+    elif 20 < len(password):
         error.password_error += 'Password must be under 21 characters long. '
     elif len(password) < 3 :
         error.password_error += 'Password must be over 2 characters long. '
     if password.find(' ')!=-1:
         error.password_error += 'Password cannot contain spaces. '
     #make sure ver-password matches
+    if ver_password == '':
+        error.ver_password_error += 'Please verify password. '
     if ver_password != password:
         error.ver_password_error += 'Passwords did not match. '
     #make sure email is valid
     # contains a single @, a single ., contains no spaces, and is between 3 and 20 characters long
     if email != '':
         if not re.match(r'^\S+@\S+\.\S+', email):
-            error.email_error += 'Email must contain a single @, a single period, no spaces'
+            error.email_error += 'Email must contain a single @, a single period, no spaces. '
         if len(email)<3:
             error.email_error += 'Must be longer than 2 characters. '
         if len(email)>20:
             error.email_error += 'Must be shorter than 20 characters. '
         #and 3-20 characters long. '
-        #if email.count('@')!=1 or email.count('.')!=1 or email.find(' ')!=-1 or 20 < len(email) < 3:
 
     if error:
         return render_template('input_form.html',title='Signup Form',username=username, email=email, error=error)

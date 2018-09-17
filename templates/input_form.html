@@ -3,16 +3,18 @@
 {% block content %}
  
     <form action="/signup" method="post">
+        <label width: 1000px>
+            Username &#160 &#160 &#160 &#160 &#160
+        </label>
         <label>
-            Username      
             <input id='username' onkeyup="add_username_checkmark();" type="text" name="user-name" value='{{username}}'/>
             <label id='username_checkmark'></label>
             <label id='username_error' class="error">{{error.username_error}}</label>
-        </label>
+        </label>   
         <br>
         
         <label>
-            Password
+            Password &#160 &#160 &#160 &#160 &#160 
             <input id='password' type="password" onkeyup="add_password_checkmark();" name="pass-word" value='{{password}}'/>
             <label id='password_checkmark'></label>
             <label class="error">{{error.password_error}}</label>
