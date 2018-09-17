@@ -42,15 +42,15 @@ def index():
     if username == '':
         error.username_error += 'Please enter a username. '
     if 20 < len(username) or len(username) < 3:
-        error.username_error += 'Username must be between 3 and 20 characters long. '
+        error.username_error += 'Username must be 3 to 20 characters long. '
     if username.find(' ')!=-1:
         error.username_error += 'Username cannot contain spaces. '
     #make sure pass-word is valid
     #it contains a space character or it consists of less than 3 characters or more than 20 characters
     if 20 < len(password):
-        error.password_error += 'Password must be under 20 characters long. '
+        error.password_error += 'Password must be under 21 characters long. '
     elif len(password) < 3 :
-        error.password_error += 'Password must be over 3 characters long. '
+        error.password_error += 'Password must be over 2 characters long. '
     if password.find(' ')!=-1:
         error.password_error += 'Password cannot contain spaces. '
     #make sure ver-password matches
@@ -62,7 +62,7 @@ def index():
         if not re.match(r'^\S+@\S+\.\S+', email):
             error.email_error += 'Email must contain a single @, a single period, no spaces'
         if len(email)<3:
-            error.email_error += 'Must be longer than 3 characters. '
+            error.email_error += 'Must be longer than 2 characters. '
         if len(email)>20:
             error.email_error += 'Must be shorter than 20 characters. '
         #and 3-20 characters long. '

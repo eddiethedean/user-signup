@@ -51,7 +51,7 @@
 
     function add_username_checkmark() {
         var val = document.getElementById("username").value;
-        if (val.length > 3 && val.length < 20 && val.indexOf(" ")==-1){
+        if (val.length >= 3 && val.length <= 20 && val.indexOf(" ")==-1){
             document.getElementById("username_checkmark").innerHTML = green_checkbox;
         }
         else {
@@ -61,7 +61,7 @@
 
     function add_password_checkmark() {
         var val = document.getElementById("password").value;
-        if (val.length > 3 && val.length < 20 && val.indexOf(" ")==-1){
+        if (val.length >= 3 && val.length <= 20 && val.indexOf(" ")==-1){
             document.getElementById("password_checkmark").innerHTML = green_checkbox;
         }
         else {
